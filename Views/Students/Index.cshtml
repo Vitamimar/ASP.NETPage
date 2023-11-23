@@ -1,0 +1,95 @@
+﻿@using X.PagedList
+@using WebApplication2.Conversor
+@model X.PagedList.IPagedList<WebApplication2.School_dbModels.Person>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="search_container">
+    <div>
+        <form asp-controller="Students" asp-action="Search" method="get">            
+            <input type="text" class="search_input" placeholder="Search" name="searchTerm">
+            <button type="submit" id="search_button" title="Adicionar Estudante">Search</button>
+        </form>
+    </div>
+
+</div>
+
+<div style="display: inline-flex; margin-top: 20px">
+    <h1>Student Listing</h1>
+    <a class="studentButtons" onclick="location.href='@Url.Action("Create", "Students")'" >
+        <span class="plus"> +</span>
+        <span class="text">Add Student</span>
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().LastName)
+            </th>
+            <th>
+                Age
+            </th>
+            <th class="last_th"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    <!--Usa a AgeCalculator para calcular a idade atual, src=/Conversor-->
+                     @Conversor.AgeCalculator(item.Birth)
+                </td>
+                <td class="listActions">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="table_button">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="table_button">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="delete_button">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination">
+    @if (Model.HasPreviousPage)
+    {
+        <a href="?page=@(Model.PageNumber - 1)" class="page_button" id="previous_button">Previous</a>
+    }
+
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        if (i == Model.PageNumber)
+        {
+            <span class="current_page_button">@i</span>
+        }
+        else
+        {
+            <a href="?page=@i" class="page_button">@i</a>
+        }
+    }
+
+    @if (Model.HasNextPage)
+    {
+        <a href="?page=@(Model.PageNumber + 1)" class="page_button" id="next_button">Next</a>
+    }
+</div>

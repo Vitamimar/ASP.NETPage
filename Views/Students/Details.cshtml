@@ -1,0 +1,48 @@
+﻿@model WebApplication2.School_dbModels.Person
+@using WebApplication2.Conversor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div style="display:inline-flex;">
+    <img src="~/images/overview-icon.svg" class="notFoundIcon" />
+    <h1>Details</h1>
+</div>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            First Name
+        </dt>
+        <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            Last Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Birth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.Raw(Model.Birth.ToString("yyyy-MM-dd"))
+        </dd>
+        <dt class="col-sm-2">
+            Age
+        </dt>
+        <dd class="col-sm-10">
+            @Conversor.AgeCalculator(Model.Birth)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <form asp-action="Delete">
+        <a asp-action="Index" class="table_button button_position">Back to List</a>
+    </form>
+</div>
