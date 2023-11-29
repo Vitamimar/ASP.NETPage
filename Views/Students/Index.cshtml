@@ -8,6 +8,7 @@
 
 <div id="search_container">
     <div>
+
         <form asp-controller="Students" asp-action="Search" method="get">            
             <input type="text" class="search_input" placeholder="Search" name="searchTerm">
             <button type="submit" id="search_button" title="Adicionar Estudante">Search</button>
@@ -22,7 +23,9 @@
         <span class="plus"> +</span>
         <span class="text">Add Student</span>
     </a>
+
 </div>
+
 
 <table class="table">
     <thead>
@@ -92,4 +95,11 @@
     {
         <a href="?page=@(Model.PageNumber + 1)" class="page_button" id="next_button">Next</a>
     }
+
+    
 </div>
+
+<!--<div class="return-button">
+    <a href="../"class="table_button">Return</a>
+</div>-->
+

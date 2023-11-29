@@ -23,6 +23,7 @@ namespace WebApplication2.Controllers
 
 
         // GET: Students
+        [Authorize(Roles = "Administrator, Manager, EmployeeNumber")]
         public IActionResult Index(int? page)
         {
             int pageSize = 10;
@@ -30,7 +31,7 @@ namespace WebApplication2.Controllers
             var totalStudent = _schoolarDbContext.People.Where(p => p.Roles == 1);
             /*var totalStudent = from people in _schoolarDbContext.People
                         join role in _schoolarDbContext.Roles on people.Roles equals role.Id
-                        where role.Labels.Equals("Srudent") 
+                        where role.Labels.Equals("Student") 
                         select people;*/
             return View(totalStudent.ToPagedList(pageNumber, pageSize));
         }

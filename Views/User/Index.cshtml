@@ -1,94 +1,35 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using X.PagedList
-
-@model X.PagedList.IPagedList<IdentityUser>
-
+﻿@using WebApplication2.Models
+@model List<WebApplication2.Models.UserRolesViewModel>
 @{
-    ViewData["Title"] = "User List";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Users</h1>
-
-div id="search_container">
-<div>
-    <form asp-controller="Students" asp-action="Search" method="get">
-        <input type="text" class="search_input" placeholder="Search" name="searchTerm">
-        <button type="submit" id="search_button" title="Adicionar Estudante">Search</button>
-    </form>
-</div>
-
-</div>
-
-<div style="display: inline-flex; margin-top: 20px">
-    <h1>Student Listing</h1>
-    <a class="studentButtons" onclick="location.href='@Url.Action("Create", "Students")'">
-        <span class="plus"> +</span>
-        <span class="text">Add Student</span>
-    </a>
-</div>
-
-<table class="table">
+<h1>User Roles</h1>
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Email)
-            </th>
-            <th>
-                Age
-            </th>
-            <th class="last_th"></th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Action</th>
         </tr>
     </thead>
-
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var user in Model)
         {
             <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>@string.Join(" , ", user.Roles.ToList())</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td class="listActions">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="table_button">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="table_button">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="delete_button">Delete</a>
+                    <a class="btn btn-primary" asp-controller="User" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<div class="pagination">
-    @if (Model.HasPreviousPage)
-    {
-        <a href="?page=@(Model.PageNumber - 1)" class="page_button" id="previous_button">Previous</a>
-    }
-
-    @for (int i = 1; i <= Model.PageCount; i++)
-    {
-        if (i == Model.PageNumber)
-        {
-            <span class="current_page_button">@i</span>
-        }
-        else
-        {
-            <a href="?page=@i" class="page_button">@i</a>
-        }
-    }
-
-    @if (Model.HasNextPage)
-    {
-        <a href="?page=@(Model.PageNumber + 1)" class="page_button" id="next_button">Next</a>
-    }
+<div class="return-button">
+    <a href="../" class="table_button">Return</a>
 </div>

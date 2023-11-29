@@ -19,7 +19,6 @@ header {
     background-color: rgb(39, 38, 43);
     color: white;
 }
-
 .header {
     position: relative;
 }
@@ -44,8 +43,8 @@ header {
     text-decoration: none;
 }
 
-#logout, #manage {
-    display:block;
+#logout, #manage, #manageUsers{
+    display: block;
     margin-left: 10px;
     font-size: 1.2em;
     color: white !important;
@@ -60,7 +59,7 @@ header {
     color: white !important;
     margin-right: 1.3em;
 }
-    #login:hover, #register:hover, #logout:hover, #manage:hover {
+    #login:hover, #register:hover, #logout:hover, #manage:hover, #manageUsers:hover {
         color: #00A300 !important;
     }
 
@@ -89,7 +88,9 @@ input {
     padding-left: 35px; 
 }
 
-
+.return-button{
+margin: 10px 0 -5em 0 !important;
+}
 
 .search_input {
     flex: 1;
